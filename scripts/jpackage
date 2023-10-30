@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+set -e
+
+rm -rf ./.build/devtools
+
+mvn clean package -Dquarkus.package.type=uber-jar -DskipTests
+
+jpackage --input target/ \
+  --dest ./.build \
+  --name devtools \
+  --main-jar devtools-1.0.0-SNAPSHOT-runner.jar \
+  --type app-image \
+  --java-options '--enable-preview -Dfile.encoding=UTF8'
